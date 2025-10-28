@@ -1,45 +1,56 @@
-# 🇪🇬 Egyptian National ID OCR & Text Extraction API
+# 🏦 Egyptian National ID OCR API for Insurance Systems
 
-A **FastAPI-powered OCR (Optical Character Recognition)** service for **extracting and processing text data from Egyptian National ID cards**, enhanced with **Arabic spell correction**, **factory number recognition**, and **JWT key generation** utilities.
+A **FastAPI-based OCR (Optical Character Recognition)** service developed to help **insurance companies** automate the extraction and processing of **Egyptian National ID card data**.
+This system leverages state-of-the-art **computer vision** and **natural language processing** tools to identify, read, and structure ID card information for accurate policy creation and client verification.
 
-This project integrates computer vision and natural language processing tools — including **OpenCV**, **PyTesseract**, **EasyOCR**, and **PySpellChecker** — to automatically read and structure information from scanned ID cards.
+---
+
+## 💼 Use Case
+
+Insurance companies often require quick and accurate data entry from customer-provided ID cards.
+This API automates that process by:
+
+* Reading ID card images
+* Extracting critical data (Name, National ID, Birth Date, Gender, Address, Factory Number)
+* Optionally correcting Arabic text
+* Returning a structured JSON ready for backend integration into policy management systems
 
 ---
 
 ## 🚀 Features
 
-* 🔍 **OCR-based text extraction** from Egyptian national ID cards
-* 🧠 **Arabic name normalization and spell correction** using PySpellChecker
-* 🏙️ **City, birth date, and gender extraction** from the ID number
-* 🧾 **Factory number recognition** via `read_factory_number()`
-* ⚡ Built on **FastAPI** — modern, fast, asynchronous Python web framework
-* 🖼️ **OpenCV + EasyOCR + PyTesseract** for image preprocessing and recognition
+* 🔍 **Automatic ID text extraction** (OCR-based)
+* 🧠 **Arabic name normalization & spell correction**
+* 🏙️ **City, birth date, and gender parsing** from National ID
+* 🏭 **Factory number detection** via OpenCV & OCR
+* ⚡ **High-speed performance** using asynchronous FastAPI
+* 📦 **Ready for integration** with insurance onboarding or policy systems
 
 ---
 
 ## 🧩 Tech Stack
 
-| Layer                | Library                                                                                                             | Purpose                                     |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| **Framework**        | [FastAPI](https://fastapi.tiangolo.com/)                                                                            | Core REST API                               |
-| **Server**           | [Uvicorn](https://www.uvicorn.org/)                                                                                 | ASGI web server                             |
-| **Data Validation**  | [Pydantic](https://docs.pydantic.dev/)                                                                              | Request/response models                     |
-| **OCR Engine**       | [PyTesseract](https://pypi.org/project/pytesseract/)                                                                | Tesseract OCR bindings                      |
-| **Deep OCR**         | [EasyOCR](https://github.com/JaidedAI/EasyOCR)                                                                      | Multi-language OCR backend                  |
-| **Image Processing** | [OpenCV](https://opencv.org/)                                                                                       | Preprocessing, cropping, and edge detection |
-| **Text Correction**  | [PySpellChecker](https://pyspellchecker.readthedocs.io/en/latest/)                                                  | Arabic text spell correction                |
-| **Computer Vision**  | [Ultralytics (YOLO)](https://github.com/ultralytics/ultralytics)                                                    | Object detection / region identification    |
-| **Utilities**        | [NumPy](https://numpy.org/), [Pillow](https://pillow.readthedocs.io/), [Jinja2](https://jinja.palletsprojects.com/) | Image and template utilities                |
+| Layer                | Library                                                                                                             | Purpose                                  |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| **Framework**        | [FastAPI](https://fastapi.tiangolo.com/)                                                                            | REST API framework                       |
+| **Server**           | [Uvicorn](https://www.uvicorn.org/)                                                                                 | ASGI server                              |
+| **Validation**       | [Pydantic](https://docs.pydantic.dev/)                                                                              | Request/response data models             |
+| **OCR Engine**       | [PyTesseract](https://pypi.org/project/pytesseract/)                                                                | Tesseract OCR engine                     |
+| **Deep OCR**         | [EasyOCR](https://github.com/JaidedAI/EasyOCR)                                                                      | Multi-language text extraction           |
+| **Computer Vision**  | [OpenCV](https://opencv.org/)                                                                                       | Image preprocessing and segmentation     |
+| **Spell Correction** | [PySpellChecker](https://pyspellchecker.readthedocs.io/en/latest/)                                                  | Arabic text correction                   |
+| **YOLO (Optional)**  | [Ultralytics](https://github.com/ultralytics/ultralytics)                                                           | Object detection (ID field localization) |
+| **Utilities**        | [NumPy](https://numpy.org/), [Pillow](https://pillow.readthedocs.io/), [Jinja2](https://jinja.palletsprojects.com/) | Image manipulation & templating          |
 
 ---
 
-## 📂 Project Structure
+## 📁 Project Structure
 
 ```
-project/
+insurance-id-ocr/
 │
 ├── app.py                  # Main FastAPI application
-├── utils.py                # OCR and ID extraction logic
+├── utils.py                # Core OCR & ID extraction functions
 ├── requirements.txt
 └── README.md
 ```
@@ -51,7 +62,7 @@ project/
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/<kendor74>/OCR.git
+git clone https://github.com/kendor74/OCR.git
 cd OCR
 ```
 
@@ -69,7 +80,7 @@ venv\Scripts\activate         # On Windows
 pip install -r requirements.txt
 ```
 
-Example `requirements.txt`:
+#### Example `requirements.txt`
 
 ```
 fastapi
@@ -87,31 +98,47 @@ pyspellchecker
 
 ---
 
-## 🚀 Running the API
+## 🧠 How It Works
 
-### Development Mode
+1. **Image Input** — Receive an ID image via API or file path
+2. **Preprocessing** — OpenCV enhances image clarity and contrast
+3. **Text Detection** — EasyOCR & PyTesseract identify text zones
+4. **Arabic Correction** — PySpellChecker normalizes and corrects text
+5. **Data Parsing** — Extracted text is analyzed for:
 
-Run locally using **Uvicorn**:
+   * Full Name
+   * National ID Number
+   * Address
+   * Factory Number
+   * Birth Date
+   * City
+   * Gender
+6. **JSON Response** — Clean structured output ready for policy creation
+
+---
+
+## 🚀 Running the Server
+
+Run with Uvicorn (development mode):
 
 ```bash
 uvicorn app:app --reload --host 0.0.0.0 --port 8080
 ```
 
-### Access the API:
+### Access:
 
-* **Base URL:** [http://127.0.0.1:8080](http://127.0.0.1:8080)
-* **Interactive Docs (Swagger UI):** [http://127.0.0.1:8080/docs](http://127.0.0.1:8080/docs)
-* **Alternative Docs (ReDoc):** [http://127.0.0.1:8080/redoc](http://127.0.0.1:8080/redoc)
+* **Swagger UI:** [http://127.0.0.1:8080/docs](http://127.0.0.1:8080/docs)
+* **ReDoc UI:** [http://127.0.0.1:8080/redoc](http://127.0.0.1:8080/redoc)
 
 ---
 
 ## 📡 API Endpoints
 
-### 🔹 `POST /process-id-path/`
+### 🔹 `/process-id-path/` — Extract ID Card Data
 
-Extracts textual information from an Egyptian National ID image.
+**Method:** `POST`
 
-**Request Example:**
+**Request:**
 
 ```json
 {
@@ -120,7 +147,7 @@ Extracts textual information from an Egyptian National ID image.
 }
 ```
 
-**Response Example:**
+**Response Example (Arabic values):**
 
 ```json
 {
@@ -138,51 +165,66 @@ Extracts textual information from an Egyptian National ID image.
 
 ---
 
-### 🔹 `POST /read-factory/`
+### 🔹 `/read-factory/` — Extract Only Factory Number
 
-Reads only the **factory number** from the ID image.
+**Method:** `POST`
 
-**Request Example:**
+**Request:**
 
 ```json
 {
   "image_path": "C:/images/id_sample.jpg",
-  "application_number": "APP-67890"
+  "application_number": "APP-56789"
+}
+```
+
+**Response:**
+
+```json
+{
+  "application_number": "APP-56789",
+  "factory_number": "F1234567",
+  "status": "success"
 }
 ```
 
 ---
 
-## 🧠 How It Works
+---
 
-1. **Preprocessing** — The image is enhanced using OpenCV (thresholding, noise removal, contour detection).
-2. **Text Detection** — EasyOCR/YOLO identifies text zones on the ID.
-3. **Text Extraction** — PyTesseract reads the text content from cropped regions.
-4. **Arabic Correction** — The PySpellChecker model corrects detected Arabic spelling errors.
-5. **Data Structuring** — Extracted fields (name, ID, date, gender) are organized and returned as JSON.
+## 🧱 Integration Example (Insurance Backend)
+
+The API can be integrated into your insurance system for:
+
+* **Customer onboarding**
+* **Policy verification**
+* **Automated data entry** from scanned ID cards
+* **Document management** or **KYC** verification modules
+
+You can call the `/process-id-path/` endpoint from .NET, Java, or Node.js using a simple HTTP request.
 
 ---
 
-## 🔐 Security Notes
+## 🔐 Security
 
-* All OCR and text processing are done locally — **no external API calls**.
-* JWT secret generation uses **Python’s `secrets` module**, which provides cryptographically secure random bytes ([Python Docs](https://docs.python.org/3/library/secrets.html)).
+* **Local-only processing:** No external OCR APIs — all processing runs securely on your own infrastructure.
+* **Supports HTTPS and reverse proxy deployment** via Nginx or Traefik for production.
 
 ---
 
 ## 🧾 License
 
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** — you are free to use and adapt it for internal or commercial insurance systems.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome!
+Contributions, suggestions, and feature improvements are welcome.
 
-1. Fork the repository
+1. Fork the repo
 2. Create a feature branch
-3. Submit a pull request with clear details
+3. Submit a pull request
 
 ---
 
@@ -196,3 +238,4 @@ Contributions are welcome!
 * [Ultralytics YOLO Docs](https://docs.ultralytics.com/)
 
 ---
+
