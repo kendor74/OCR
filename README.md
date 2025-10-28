@@ -124,15 +124,15 @@ Extracts textual information from an Egyptian National ID image.
 
 ```json
 {
-  "First Name": "Ahmed",
-  "Second Name": "Mohamed Ali",
-  "Full Name": "Ahmed Mohamed Ali Hassan",
+  "First Name": "أحمد",
+  "Second Name": "محمد علي",
+  "Full Name": "أحمد محمد علي حسن",
   "National Id": "29803211501234",
-  "Address": "Cairo, Egypt",
+  "Address": "القاهرة، مصر",
   "Factory Number": "F1234567",
   "Birth Date": "1998-03-21",
-  "City": "Cairo",
-  "Gender": "Male"
+  "City": "القاهرة",
+  "Gender": "ذكر"
 }
 ```
 
