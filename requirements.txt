@@ -1,0 +1,23 @@
+# fastapi
+# uvicorn
+# pillow
+# opencv-python
+# numpy
+# ultralytics
+# pytesseract
+# python-multipart
+# scipy
+# easyocr
+
+fastapi
+uvicorn
+pydantic
+opencv-python
+pytesseract
+numpy
+ultralytics
+pillow
+easyocr
+jinja2
+pyspellchecker
+
