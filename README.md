@@ -12,7 +12,6 @@ This project integrates computer vision and natural language processing tools �
 * 🧠 **Arabic name normalization and spell correction** using PySpellChecker
 * 🏙️ **City, birth date, and gender extraction** from the ID number
 * 🧾 **Factory number recognition** via `read_factory_number()`
-* 🔑 **Secure JWT key generation API** (for authentication and configuration)
 * ⚡ Built on **FastAPI** — modern, fast, asynchronous Python web framework
 * 🖼️ **OpenCV + EasyOCR + PyTesseract** for image preprocessing and recognition
 
@@ -149,37 +148,6 @@ Reads only the **factory number** from the ID image.
 {
   "image_path": "C:/images/id_sample.jpg",
   "application_number": "APP-67890"
-}
-```
-
----
-
-### 🔹 `POST /generate-jwt/`
-
-Generates a secure base64-encoded JWT secret key.
-
-**Request Example:**
-
-```json
-{
-  "strength": "high"
-}
-```
-
-**Response Example:**
-
-```json
-{
-  "strength": "High",
-  "bits": 1024,
-  "jwt_secret": "r2ZkPZx...Etg=",
-  "json_snippet": {
-    "Jwt": {
-      "Key": "r2ZkPZx...Etg=",
-      "Issuer": "your-app-name",
-      "Audience": "your-app-users"
-    }
-  }
 }
 ```
 
