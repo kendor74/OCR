@@ -20,7 +20,7 @@ This API automates that process by:
 ## 🚀 Features
 
 * 🔍 **Automatic ID text extraction** (OCR-based)
-* 🧠 **Arabic name normalization & spell correction**
+* 🧠 **Arabic name normalization**
 * 🏙️ **City, birth date, and gender parsing** from National ID
 * 🏭 **Factory number detection** via OpenCV & OCR
 * ⚡ **High-speed performance** using asynchronous FastAPI
@@ -38,7 +38,6 @@ This API automates that process by:
 | **OCR Engine**       | [PyTesseract](https://pypi.org/project/pytesseract/)                                                                | Tesseract OCR engine                     |
 | **Deep OCR**         | [EasyOCR](https://github.com/JaidedAI/EasyOCR)                                                                      | Multi-language text extraction           |
 | **Computer Vision**  | [OpenCV](https://opencv.org/)                                                                                       | Image preprocessing and segmentation     |
-| **Spell Correction** | [PySpellChecker](https://pyspellchecker.readthedocs.io/en/latest/)                                                  | Arabic text correction                   |
 | **YOLO (Optional)**  | [Ultralytics](https://github.com/ultralytics/ultralytics)                                                           | Object detection (ID field localization) |
 | **Utilities**        | [NumPy](https://numpy.org/), [Pillow](https://pillow.readthedocs.io/), [Jinja2](https://jinja.palletsprojects.com/) | Image manipulation & templating          |
 
